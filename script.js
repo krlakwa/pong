@@ -17,6 +17,8 @@ let ballX = fieldWidth / 2 - ballSize / 2,
 const paddleHeight = 100,
   paddleWidth = 20;
 
+
+
 //paletki
 
 const playerX = 70,
@@ -28,14 +30,26 @@ let playerY = 200,
 let ballSpeedX = 1;
 let ballSpeedY = 1;
 
-function player() {
+function playerPaddle() {
   ctx.fillStyle = "green";
   ctx.fillRect(playerX, playerY, paddleWidth, paddleHeight);
 }
 
-function computer() {
+function computerPaddle() {
   ctx.fillStyle = "yellow";
   ctx.fillRect(computerX, computerY, paddleWidth, paddleHeight);
+}
+
+function playerBounce() {
+  if (ballX <= playerX + paddleWidth && ballY >= playerY && ballY + ballSize <= playerY + paddleHeight) {
+    ballSpeedX = -ballSpeedX
+  };
+}
+
+function computerBounce() {
+  if (ballX + ballSize >= computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
+    ballSpeedX = -ballSpeedX;
+  };
 }
 
 function ball() {
@@ -54,7 +68,10 @@ function ball() {
     ballSpeedX = -ballSpeedX;
     speedUp();
   }
+  computerBounce();
+  playerBounce();
 }
+
 
 
 function table() {
@@ -133,8 +150,8 @@ gameField.addEventListener("mousemove", playerPosition);
 function game() {
   table();
   ball();
-  player();
-  computer();
+  playerPaddle();
+  computerPaddle();
   computerPosition();
 }
 
