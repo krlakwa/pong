@@ -48,16 +48,10 @@ function computerPaddle() {
 };
 
 function bounce() {
-  if (ballX < playerX + paddleWidth && ballY >= playerY && ballY + ballSize <= playerY + paddleHeight) {
+  if (ballX <= playerX + paddleWidth && ballY + ballSize >= playerY && ballY - ballSize <= playerY + paddleHeight) {
     ballSpeedX = -ballSpeedX;
   };
-  if (ballX + ballSize >= computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
-    ballSpeedX = -ballSpeedX;
-  };
-};
-
-function computerBounce() {
-  if (ballX + ballSize >= computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
+  if (ballX + ballSize >= computerX && ballY + ballSize >= computerY && ballY - ballSize <= computerY + paddleHeight) {
     ballSpeedX = -ballSpeedX;
   };
 };
