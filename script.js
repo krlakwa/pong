@@ -17,7 +17,17 @@ let ballX = fieldWidth / 2 - ballSize / 2,
 const paddleHeight = 100,
   paddleWidth = 20;
 
+const player = {
+  name: '',
+  score: 0
+};
 
+const computer = {
+  score: 0
+};
+
+const playerScore = document.getElementById('js-player-score'),
+  computerScore = document.getElementById('js-computer-score');
 
 //paletki
 
@@ -27,50 +37,68 @@ const playerX = 70,
 let playerY = 200,
   computerY = 200;
 
-let ballSpeedX = 1;
-let ballSpeedY = 1;
+let ballSpeedX = 1,
+    ballSpeedY = 1;
 
 function playerPaddle() {
   ctx.fillStyle = "green";
   ctx.fillRect(playerX, playerY, paddleWidth, paddleHeight);
-}
+};
 
 function computerPaddle() {
   ctx.fillStyle = "yellow";
   ctx.fillRect(computerX, computerY, paddleWidth, paddleHeight);
-}
+};
 
 function playerBounce() {
-  if (ballX <= playerX + paddleWidth && ballY >= playerY && ballY + ballSize <= playerY + paddleHeight) {
-    ballSpeedX = -ballSpeedX
-  };
-}
-
-function computerBounce() {
-  if (ballX + ballSize >= computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
+  if (ballX < playerX + paddleWidth && ballY >= playerY && ballY + ballSize <= playerY + paddleHeight) {
     ballSpeedX = -ballSpeedX;
   };
-}
+};
+
+function computerBounce() {
+  if (ballX + ballSize > computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
+    ballSpeedX = -ballSpeedX;
+  };
+};
+
+function countScore() {
+  if (ballX + ballSize >= fieldWidth) {
+    player.score += 1;
+    playerScore.innerText = player.score;
+    console.log('Player score ' + player.score);
+  } else if (ballX <= 0) {
+    computer.score += 1;
+    computerScore.innerText = computer.score;
+    console.log('Computer score ' + computer.score);
+  };
+};
 
 function ball() {
   ctx.fillStyle = "#fff";
   ctx.fillRect(ballX, ballY, ballSize, ballSize);
 
   //ruch piłki
-  ballX += ballSpeedX;
-  ballY += ballSpeedY;
+  ballX -= ballSpeedX;
+  ballY -= ballSpeedY;
 
   if (ballY <= 0 || ballY + ballSize >= fieldHeight) {
     ballSpeedY = -ballSpeedY;
     speedUp();
-  }
-  if (ballX <= 0 || ballX + ballSize >= fieldWidth) {
-    ballSpeedX = -ballSpeedX;
-    speedUp();
-  }
+  };
   computerBounce();
   playerBounce();
-}
+};
+
+function setGame() {
+ if (ballX <= 0 || ballX + ballSize >= fieldWidth) {
+  ballX = fieldWidth / 2 - ballSize / 2;
+  ballY = fieldHeight / 2 - ballSize / 2;
+  ballSpeedX = 1;
+  ballSpeedY = 1;
+  ball();
+  };
+};
 
 
 
@@ -153,6 +181,8 @@ function game() {
   playerPaddle();
   computerPaddle();
   computerPosition();
+  countScore();
+  setGame();
 }
 
 setInterval(game, 1000 / 60);
