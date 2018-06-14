@@ -18,7 +18,6 @@ const paddleHeight = 100,
   paddleWidth = 20;
 
 const player = {
-  name: '',
   score: 0
 };
 
@@ -28,8 +27,6 @@ const computer = {
 
 const playerScore = document.getElementById('js-player-score'),
   computerScore = document.getElementById('js-computer-score');
-
-//paletki
 
 const playerX = 70,
   computerX = 910;
@@ -50,14 +47,17 @@ function computerPaddle() {
   ctx.fillRect(computerX, computerY, paddleWidth, paddleHeight);
 };
 
-function playerBounce() {
+function bounce() {
   if (ballX < playerX + paddleWidth && ballY >= playerY && ballY + ballSize <= playerY + paddleHeight) {
+    ballSpeedX = -ballSpeedX;
+  };
+  if (ballX + ballSize >= computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
     ballSpeedX = -ballSpeedX;
   };
 };
 
 function computerBounce() {
-  if (ballX + ballSize > computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
+  if (ballX + ballSize >= computerX && ballY >= computerY && ballY + ballSize <= computerY + paddleHeight) {
     ballSpeedX = -ballSpeedX;
   };
 };
@@ -86,8 +86,7 @@ function ball() {
     ballSpeedY = -ballSpeedY;
     speedUp();
   };
-  computerBounce();
-  playerBounce();
+  bounce();
 };
 
 function setGame() {
