@@ -60,11 +60,9 @@ function countScore() {
   if (ballX + ballSize >= fieldWidth) {
     player.score += 1;
     playerScore.innerText = player.score;
-    console.log('Player score ' + player.score);
   } else if (ballX <= 0) {
     computer.score += 1;
     computerScore.innerText = computer.score;
-    console.log('Computer score ' + computer.score);
   };
 };
 
@@ -152,7 +150,6 @@ function computerPosition() {
 }
 
 function speedUp() {
-  //console.log(ballSpeedX + " , " + ballSpeedY);
   if (ballSpeedX > 0 && ballSpeedX < 16) {
     ballSpeedX += 0.5;
   } else if (ballSpeedX < 0 && ballSpeedX > -16) {
