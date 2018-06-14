@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&subset=latin-ext');
+
 body {
     position: relative;
     margin: 0;
@@ -14,6 +16,7 @@ body {
     display: inline-block;
     top: 5vh;
     margin: 0 auto;
+    font-family: 'Press Start 2P', cursive;
   }
 
   canvas {
