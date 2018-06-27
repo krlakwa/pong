@@ -173,6 +173,8 @@ function game() {
   computerPosition();
   countScore();
   setGame();
+
+  requestAnimationFrame(game);
 }
 
-setInterval(game, 1000 / 60);
+requestAnimationFrame(game);
